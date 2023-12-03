@@ -56,6 +56,9 @@ def get_first_last_normal_digit(string_to_search):      #returns the index and v
         return [[-1],[-1]]                                     #if nothing is found return -1
     return [[indices[0],string_to_search[indices[0]]],[indices[-1],string_to_search[indices[-1]]]]
 
+def get_first_last_literal_digit(string_to_search):
+    return [get_first_literal_digit(string_to_search),get_last_literal_digit(string_to_search)]
+
 def get_line_result(literal_digits, normal_digits):
     if literal_digits[0][0] == -1:
         return int(normal_digits[0][1] + normal_digits[1][1])   #when no literal digits are present return the first and last normal digit
@@ -74,7 +77,7 @@ def get_line_result(literal_digits, normal_digits):
 
 sum = 0
 for line in INPUT_FILE:
-    sum += get_line_result([get_first_literal_digit(line),get_last_literal_digit(line)],get_first_last_normal_digit(line))
+    sum += get_line_result(get_first_last_literal_digit(line),get_first_last_normal_digit(line))
 
 print(sum)
 
