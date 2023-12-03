@@ -1,4 +1,4 @@
-INPUT_FILE= open("Day1Input.txt", "r")  #input file from Advent of Code
+INPUT_FILE= open("Day1/Day1Input.txt", "r")  #input file from Advent of Code
 
 DIGITS_DICT = {"one" : "1",             #for translating digits written as words, or as
                "two" : "2",             #i call them "literal digits" into normal digits
@@ -59,8 +59,8 @@ def get_first_last_normal_digit(string_to_search):      #returns the index and v
 def get_first_last_literal_digit(string_to_search):
     return [get_first_literal_digit(string_to_search),get_last_literal_digit(string_to_search)]
 
-def get_line_result(literal_digits, normal_digits):
-    if literal_digits[0][0] == -1:
+def get_line_result(literal_digits, normal_digits, part):
+    if literal_digits[0][0] == -1 or part == 1:
         return int(normal_digits[0][1] + normal_digits[1][1])   #when no literal digits are present return the first and last normal digit
     if normal_digits[0][0] == -1:
         return int(literal_digits[0][1] + literal_digits[1][1])  #same thing just the opposite
@@ -74,10 +74,12 @@ def get_line_result(literal_digits, normal_digits):
         last = normal_digits[1][1]
     return int(first + last)
 
+def calculate_sum(part):
+    result = 0
+    for line in INPUT_FILE:
+        result += get_line_result(get_first_last_literal_digit(line),get_first_last_normal_digit(line), part)
+    INPUT_FILE.seek(0)      #resetting the "cursor" to the beginning of the file
+    return result
 
-sum = 0
-for line in INPUT_FILE:
-    sum += get_line_result(get_first_last_literal_digit(line),get_first_last_normal_digit(line))
-
-print(sum)
+print("Part 1: " + str(calculate_sum(1)) + "\nPart 2: " + str(calculate_sum(2)))
 
