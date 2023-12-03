@@ -12,9 +12,9 @@ DIGITS_DICT = {"one" : "1",             #for translating digits written as words
                }
 
 def get_first_literal_digit(string_to_search):          #finding the first(most left) occurance of a literal digit and return both
-    min_index = index_find_any_match(string_to_search)  #index and the literal digit
+    min_index = get_any_literal_digit(string_to_search)  #index and the literal digit
     if min_index == -1:                                 #if no literal digit is found return -1
-        return[-1]
+        return[-1,"null"]
     literal_digit = "null"
     for x in list(DIGITS_DICT.keys()):                  #iterate through the literal digits (list(DIGITS_DICT.keys()) = "one, "two"...)
         temp_index = string_to_search.find(x)           #to find the first occurance
@@ -24,10 +24,10 @@ def get_first_literal_digit(string_to_search):          #finding the first(most 
     
     return [min_index, DIGITS_DICT[literal_digit]]      #return a list with the index and the value
 
-def get_last_literal_digit(string_to_search):          #same here with the last occurance
-    max_index = index_find_any_match(string_to_search)
+def get_last_literal_digit(string_to_search):           #same here with the last occurance
+    max_index = get_any_literal_digit(string_to_search)
     if max_index == -1:
-        return[-1]
+        return[-1,"null"]
     literal_digit= "null"
     for x in list(DIGITS_DICT.keys()):
         temp_index = string_to_search.rfind(x)
@@ -37,7 +37,7 @@ def get_last_literal_digit(string_to_search):          #same here with the last 
             
     return [max_index, DIGITS_DICT[literal_digit]]
         
-def index_find_any_match(string_to_search):
+def get_any_literal_digit(string_to_search):             #function to find any occurance of a literal digit and return its index
     count = 0
     any_index = -1
     while any_index == -1 and count < 9:
@@ -46,35 +46,35 @@ def index_find_any_match(string_to_search):
     
     return any_index
 
-def index_digit_left_right(string_to_search):
+def get_first_last_normal_digit(string_to_search):      #returns the index and value of the first and the last occurance of a normal digit("1","2","3"...)
     indices = []
     for index, value in enumerate(string_to_search):
         if value.isdigit():
             indices.append(index)
     indices.sort()
     if indices == []:
-        return [-1]
-    return [indices[0], indices[-1]]
+        return [[-1],[-1]]                                     #if nothing is found return -1
+    return [[indices[0],string_to_search[indices[0]]],[indices[-1],string_to_search[indices[-1]]]]
 
-def get_left_right(string_results, char_results, input_string):
-    if string_results[0][0] == -1:
-        return input_string[char_results[0]] + input_string[char_results[1]]
-    if char_results[0] == -1:
-        return DIGITS_DICT[string_results[0][1]] + DIGITS_DICT[string_results[1][1]]
-    if string_results[0][0] < char_results[0]:
-        left = DIGITS_DICT[string_results[0][1]]
+def get_line_result(literal_digits, normal_digits):
+    if literal_digits[0][0] == -1:
+        return int(normal_digits[0][1] + normal_digits[1][1])   #when no literal digits are present return the first and last normal digit
+    if normal_digits[0][0] == -1:
+        return int(literal_digits[0][1] + literal_digits[1][1])  #same thing just the opposite
+    if literal_digits[0][0] < normal_digits[0][0]:               #comparing indices of the occurances of the literal and normal digits
+        first = literal_digits[0][1]
     else:
-        left = input_string[char_results[0]]
-    if string_results[1][0] > char_results[1]:
-        right = DIGITS_DICT[string_results[1][1]]
+        first = normal_digits[0][1]
+    if literal_digits[1][0] > normal_digits[1][0]:              #comparing indices of the occurances of the literal and normal digits
+        last = literal_digits[1][1]
     else:
-        right = input_string[char_results[1]]
-    return left + right
+        last = normal_digits[1][1]
+    return int(first + last)
 
 
 sum = 0
 for line in INPUT_FILE:
-    sum += int(get_left_right([left_index_literal_digit(line),right_index_literal_digit(line)],index_digit_left_right(line),line))
+    sum += get_line_result([get_first_literal_digit(line),get_last_literal_digit(line)],get_first_last_normal_digit(line))
 
 print(sum)
 
