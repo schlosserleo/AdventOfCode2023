@@ -1,43 +1,34 @@
-# def create_matrix():
-#     INPUT_FILE = open("Day3/Day3Input.txt")
-#     matrix = []
+from Matrix import *
+from Number import *
 
-#     for line in INPUT_FILE:
-#         matrix.append(line.strip())
+INPUT_FILE = open("Day3/Day3Input.txt")
+
+def get_input_proportions(input_file):
+    INPUT_FILE.seek(0)
+    input_as_list = []
+    for line in input_file:
+        input_as_list.append(line.strip())
         
-#     return matrix
+    return {"x":len(input_as_list[0]), "y":len(input_as_list)}
 
-# MATRIX = create_matrix()
-    
-MATRIX = ["upperupper",
-          "left123right",
-          "belowbelow"]
+def create_matrix(len_x, len_y):
+    matrix = Matrix(len_x,len_y)
+    INPUT_FILE.seek(0)
+    for y, line in enumerate(INPUT_FILE):
+        for x, char in enumerate(line.strip()):
+            matrix.set_value(x, y, char)
 
-number_coord_start = [4,1]
-number_coord_end = [6,1]
+    return matrix
 
-def get_sorrounding_symbols(number_coord_start, number_coord_end):              #number_start: [<Zeile(index in MATRIX)>, <Spalte(index in Zeile)>]
-    left_number_coordinates = [number_start[0],number_start[1] - 1]
-    print(left_number_index)
-    # right_number_index =
-    # over_number = ""
-    # under_number = ""
+def create_number(matrix, start, end):
+    number = [start, end]
+    for i in range(end.x - start.x - 1):
+        number.insert(i + 1, matrix.get_point_at(start.x + i + 1, start.y))
     
-def get_coordinates_of_number_surroundings(number_coord_x_start, number_coord_x_end, position):
-    if position == "left":
-        return [number_coord_x_start[1], number_coord_x_start[0] - 1]
-    elif position == "right":
-        return [number_coord_x_end[1], number_coord_x_end[0] + 1]
-    elif position == "upper":
-        return [[number_coord_x_start[1] - 1, number_coord_x_start[0] - 1], [number_coord_x_end[1] - 1, number_coord_x_end[0] + 1]]
-    elif position == "below":
-        return [[number_coord_x_start[1] + 1, number_coord_x_start[0] - 1], [number_coord_x_end[1] + 1, number_coord_x_end[0] + 1]]
+    return number
 
-def parse_matrix(coords):
-    y = coords[0]
-    x = coords[1]
-    return MATRIX[y][x]
-    
-print(parse_matrix(get_coordinates_of_number_surroundings(number_coord_start, number_coord_end, "left")))
-    
-    
+input_proportions = get_input_proportions(INPUT_FILE)
+matrix_len_x = input_proportions["x"]
+matrix_len_y = input_proportions["y"]
+
+m = create_matrix(matrix_len_x, matrix_len_y)
