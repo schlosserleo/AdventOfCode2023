@@ -6,13 +6,13 @@ class Matrix:
     def __init__(self, len_x, len_y, standard_value="."):
         self.len_x = len_x
         self.len_y = len_y
-        self.matrix = [[Point(col, row, standard_value) for col in range(len_y)] for row in range(len_x)]
+        self.content = [[Point(col, row, standard_value) for col in range(len_y)] for row in range(len_x)]
         self.values = self.__extract_values()
 
     def __extract_values(self):
         values = []
         line_str = ""
-        for y, line in enumerate(self.matrix):
+        for y, line in enumerate(self.content):
             for x, point in enumerate(line):
                 line_str += point.value
             values.append(line_str)
@@ -20,14 +20,14 @@ class Matrix:
         return values
 
     def set_value(self, x, y, value):
-        self.matrix[y][x].value = value
+        self.content[y][x].value = value
         self.values[y] = self.values[y][:x] + value + self.values[0][x + 1:]
 
     def get_value(self, x, y):
-        return self.matrix[y][x].value
+        return self.content[y][x].value
 
     def get_point(self, x, y):
-        return self.matrix[y][x]
+        return self.content[y][x]
 
     def __str__(self):
         return str(self.values)

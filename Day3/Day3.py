@@ -2,7 +2,7 @@ from Matrix import *
 from Number import *
 
 
-def get_input_proportions(input_file):
+def get_matrix_dimension(input_file):
     input_file.seek(0)
     input_as_list = []
     for line in input_file:
@@ -11,10 +11,10 @@ def get_input_proportions(input_file):
     return {"x": len(input_as_list[0]), "y": len(input_as_list)}
 
 
-def fill_matrix(input_file, len_x, len_y):
+def fill_matrix(content, len_x, len_y):
     matrix = Matrix(len_x, len_y)
-    input_file.seek(0)
-    for y, line in enumerate(input_file):
+    content.seek(0)
+    for y, line in enumerate(content):
         for x, char in enumerate(line.strip()):
             matrix.set_value(x, y, char)
 
@@ -27,7 +27,7 @@ def get_numbers(matrix):
     number_start = matrix.get_point(0, 0)
     prev_point = matrix.get_point(0, 0)
 
-    for line in matrix.matrix:
+    for line in matrix.content:
         for point in line:
             if point.value.isdigit() and not is_building_number:
                 number_start = point
@@ -63,7 +63,7 @@ def solve_part1(matrix, numbers):
 
 def main():
     input_file = open("Day3Input.txt")
-    input_data = fill_matrix(input_file, get_input_proportions(input_file)["x"], get_input_proportions(input_file)["y"])
+    input_data = fill_matrix(input_file, get_matrix_dimension(input_file)["x"], get_matrix_dimension(input_file)["y"])
     print(solve_part1(input_data, get_numbers(input_data)))
 
 
