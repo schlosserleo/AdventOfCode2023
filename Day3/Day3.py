@@ -44,5 +44,6 @@ def get_numbers(input_file):
             else:
                 prev_point = point
 
+
 def solve_part1():
     pass
