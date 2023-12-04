@@ -22,18 +22,27 @@ def create_matrix(len_x, len_y):
     return matrix
 
 
-input_proportions = get_input_proportions(INPUT_FILE)
-matrix_len_x = input_proportions["x"]
-matrix_len_y = input_proportions["y"]
+def get_numbers(input_file):
+    matrix = create_matrix(get_input_proportions(input_file)["x"], get_input_proportions(input_file)["y"])
+    numbers = []
+    is_building_number = False
+    number_start = matrix.get_point(0, 0)
+    prev_point = matrix.get_point(0, 0)
 
-m = create_matrix(matrix_len_x, matrix_len_y)
-for point in m.matrix:
-    number_started = False
-    if point.value.isdigit():
-        if not number_started:
-            number_start = point
-            number_started = True
-    else:
-        number_started = False
-        number_end = point
-        # number = Number(m, point)
+    for line in matrix.matrix:
+        for point in line:
+            if point.value.isdigit() and not is_building_number:
+                number_start = point
+                is_building_number = True
+
+            if not point.value.isdigit():
+                if is_building_number:
+                    number_end = prev_point
+                    is_building_number = False
+                    number = Number(matrix, number_start, number_end)
+                    numbers.append(number)
+            else:
+                prev_point = point
+
+def solve_part1():
+    pass
