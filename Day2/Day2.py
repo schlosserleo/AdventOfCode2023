@@ -1,4 +1,4 @@
-INPUT_FILE = open("Day2/Day2Input.txt")
+INPUT_FILE = open("Day2Input.txt")
 
 def parse_line(line):
     double_point_position = line.find(":") 

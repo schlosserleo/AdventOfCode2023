@@ -1,4 +1,4 @@
-INPUT_FILE= open("Day1/Day1Input.txt", "r")  #input file from Advent of Code
+INPUT_FILE= open("Day1Input.txt", "r")  #input file from Advent of Code
 
 DIGITS_DICT = {"one" : "1",             #for translating digits written as words, or as
                "two" : "2",             #i call them "literal digits" into normal digits

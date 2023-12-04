@@ -7,11 +7,12 @@ class Point:
         else:
             self.value = value
         self.coords = [self.x, self.y]
+
     def __str__(self):
         return f"{self.x}, {self.y}"
-    
+
     def get_list(self):
-        return [[self.x, self.y],self.value]
-    
+        return [[self.x, self.y], self.value]
+
     def get_value(self):
         return f"{self.value}"
