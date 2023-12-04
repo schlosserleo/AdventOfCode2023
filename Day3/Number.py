@@ -3,7 +3,10 @@ class Number:
         self.start = start
         self.end = end
         self.len = self.end.x - self.start.x + 1
-        self.points = [start, end]
+        if start.coords != end.coords:
+            self.points = [start, end]
+        else:
+            self.points = [start]
         for i in range(end.x - start.x - 1):
             self.points.insert(i + 1, matrix.get_point(start.x + i + 1, start.y))
         self.value = self.get_value()

@@ -1,10 +1,9 @@
 from Matrix import *
 from Number import *
-INPUT_FILE = open("Day3Input.txt")
 
 
 def get_input_proportions(input_file):
-    INPUT_FILE.seek(0)
+    input_file.seek(0)
     input_as_list = []
     for line in input_file:
         input_as_list.append(line.strip())
@@ -12,18 +11,17 @@ def get_input_proportions(input_file):
     return {"x": len(input_as_list[0]), "y": len(input_as_list)}
 
 
-def create_matrix(len_x, len_y):
+def fill_matrix(input_file, len_x, len_y):
     matrix = Matrix(len_x, len_y)
-    INPUT_FILE.seek(0)
-    for y, line in enumerate(INPUT_FILE):
+    input_file.seek(0)
+    for y, line in enumerate(input_file):
         for x, char in enumerate(line.strip()):
             matrix.set_value(x, y, char)
 
     return matrix
 
 
-def get_numbers(input_file):
-    matrix = create_matrix(get_input_proportions(input_file)["x"], get_input_proportions(input_file)["y"])
+def get_numbers(matrix):
     numbers = []
     is_building_number = False
     number_start = matrix.get_point(0, 0)
@@ -43,7 +41,33 @@ def get_numbers(input_file):
                     numbers.append(number)
             else:
                 prev_point = point
+    return numbers
 
 
-def solve_part1():
-    pass
+def solve_part1(matrix, numbers):
+    result_sum = 0
+    number_is_valid = False
+    print(f"number count: {len(numbers)}")
+    print(f"number list: {[i.value for i in numbers]}")
+    for number in numbers:
+        surrounding_points = matrix.get_number_neighbors(number)
+        for point in surrounding_points:
+            if point.value != ".":
+                number_is_valid = True
+                break
+            else:
+                number_is_valid = False
+        if number_is_valid:
+            print(f"valid number: {number.value}")
+            result_sum += int(number.value)
+            print(f"sum: {result_sum}")
+
+    return result_sum
+
+
+def __main__():
+    input_file = open("Day3Input.txt")
+    input_data = fill_matrix(input_file, get_input_proportions(input_file)["x"], get_input_proportions(input_file)["y"])
+    print(solve_part1(input_data, get_numbers(input_data)))
+
+if __name__() == __main__():

@@ -41,15 +41,16 @@ def solve_part1():
     blue_max = 14
     green_max = 13
     sum_of_game_numbers = 0
+    subset_is_valid = False
     for line in INPUT_FILE:
         parsed_line = parse_line(line)
-        for set in parsed_line[1]:
-            if set["red"] <= red_max and set["blue"] <= blue_max and set["green"] <= green_max:
-                set_is_valid = True
+        for subset in parsed_line[1]:
+            if subset["red"] <= red_max and subset["blue"] <= blue_max and subset["green"] <= green_max:
+                subset_is_valid = True
             else:
-                set_is_valid = False
+                subset_is_valid = False
                 break
-        if set_is_valid:
+        if subset_is_valid:
             sum_of_game_numbers += parsed_line[0]
     INPUT_FILE.seek(0)
     return sum_of_game_numbers
@@ -62,16 +63,14 @@ def solve_part2():
     sum_of_powers = 0
     for line in INPUT_FILE:
         parsed_line = parse_line(line)
-        for set in parsed_line[1]:
-            if set["red"] > red_min:  # and set["red"] != 0:
-                red_min = set["red"]
-            if set["blue"] > blue_min:  # and set["blue"] != 0:
-                blue_min = set["blue"]
-            if set["green"] > green_min:  # and set["green"] != 0:
-                green_min = set["green"]
+        for subset in parsed_line[1]:
+            if subset["red"] > red_min:  # and set["red"] != 0:
+                red_min = subset["red"]
+            if subset["blue"] > blue_min:  # and set["blue"] != 0:
+                blue_min = subset["blue"]
+            if subset["green"] > green_min:  # and set["green"] != 0:
+                green_min = subset["green"]
         set_power = red_min * blue_min * green_min
-        print(red_min, blue_min, green_min)
-        print(f"Game {parsed_line[0]}: {set_power}")
         sum_of_powers += set_power
         red_min = 0
         blue_min = 0

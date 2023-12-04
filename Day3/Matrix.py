@@ -33,14 +33,14 @@ class Matrix:
         return str(self.values)
 
     def get_number_neighbors(self, number):
-        surrounding_values = []
-
+        surrounding_points_of_number = []
         for position in number.points:
-            for point in self.get_point_neighbors(position):
-                if point not in surrounding_values and point not in number.points:
-                    surrounding_values.append(point)
+            surrounding_points_of_point = self.get_point_neighbors(position)
+            for point in surrounding_points_of_point:
+                if point not in number.points and point not in surrounding_points_of_number:
+                    surrounding_points_of_number.append(point)
 
-        return surrounding_values
+        return surrounding_points_of_number
 
     def get_point_neighbors(self, point):
         surrounding_values = []
@@ -51,7 +51,7 @@ class Matrix:
         else:
             left_border = True
         # right neighbor
-        if point.x < self.len_x:
+        if point.x < self.len_x - 1:
             right_border = False
             surrounding_values.append(self.get_point(point.x + 1, point.y))
         else:
@@ -68,9 +68,9 @@ class Matrix:
             if not right_border:
                 surrounding_values.append(self.get_point(point.x + 1, point.y - 1))
         # else:
-            # upper_border = True
+        # upper_border = True
         # below
-        if point.y < self.len_y:
+        if point.y < self.len_y - 1:
             # below_border = False
             # below left
             if not left_border:
