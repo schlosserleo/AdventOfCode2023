@@ -9,7 +9,7 @@ def parse_line(line):
     sets = []
     set_content = {"red": 0, "blue": 0, "green": 0}
     color = ""
-
+    color_count = 0
     color_count_str = ""
     previous_was_digit = False
 
@@ -79,4 +79,9 @@ def solve_part2():
     return sum_of_powers
 
 
-print("Part 1 :" + str(solve_part1()) + "\nPart 2 :" + str(solve_part2()))
+def main():
+    print("Part 1 :" + str(solve_part1()) + "\nPart 2 :" + str(solve_part2()))
+
+
+if __name__ == "__main__":
+    main()

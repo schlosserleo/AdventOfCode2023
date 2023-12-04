@@ -91,4 +91,11 @@ def calculate_sum(part):
     return result
 
 
-print("Part 1: " + str(calculate_sum(1)) + "\nPart 2: " + str(calculate_sum(2)))
+def main():
+    print("Part 1: " + str(calculate_sum(1)) + "\nPart 2: " + str(calculate_sum(2)))
+
+
+if __name__ == "__main__":
+    main()
+
+
