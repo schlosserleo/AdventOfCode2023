@@ -53,21 +53,26 @@ def solve_part1():
     return sum_of_game_numbers
 
 def solve_part2():
-    red_min = 100
-    blue_min = 100
-    green_min = 100
+    red_min = 0
+    blue_min = 0
+    green_min = 0
     sum_of_powers = 0
     for line in INPUT_FILE:
         parsed_line = parse_line(line)
         for set in parsed_line[1]:
-            if set["red"] < red_min and set["red"] != 0:
+            if set["red"] > red_min: #and set["red"] != 0:
                 red_min = set["red"]
-            if set["blue"] < blue_min and set[""]:
+            if set["blue"] > blue_min: #and set["blue"] != 0:
                 blue_min = set["blue"]
-            if set["green"] < green_min:
+            if set["green"] > green_min: #and set["green"] != 0:
                 green_min = set["green"]
         set_power = red_min * blue_min * green_min
+        print(red_min, blue_min, green_min)
+        print(f"Game {parsed_line[0]}: {set_power}")
         sum_of_powers += set_power
+        red_min = 0
+        blue_min = 0
+        green_min = 0
         
     return sum_of_powers
 print("Part 1 :" + str(solve_part1())+"\nPart 2 :" + str(solve_part2())) 
