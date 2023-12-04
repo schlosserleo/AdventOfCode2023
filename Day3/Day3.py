@@ -47,8 +47,6 @@ def get_numbers(matrix):
 def solve_part1(matrix, numbers):
     result_sum = 0
     number_is_valid = False
-    print(f"number count: {len(numbers)}")
-    print(f"number list: {[i.value for i in numbers]}")
     for number in numbers:
         surrounding_points = matrix.get_number_neighbors(number)
         for point in surrounding_points:
@@ -58,16 +56,16 @@ def solve_part1(matrix, numbers):
             else:
                 number_is_valid = False
         if number_is_valid:
-            print(f"valid number: {number.value}")
             result_sum += int(number.value)
-            print(f"sum: {result_sum}")
 
     return result_sum
 
 
-def __main__():
+def main():
     input_file = open("Day3Input.txt")
     input_data = fill_matrix(input_file, get_input_proportions(input_file)["x"], get_input_proportions(input_file)["y"])
     print(solve_part1(input_data, get_numbers(input_data)))
 
-if __name__() == __main__():
+
+if __name__ == "__main__":
+    main()
