@@ -80,7 +80,7 @@ def solve_part2():
 
 
 def main():
-    print("Part 1 :" + str(solve_part1()) + "\nPart 2 :" + str(solve_part2()))
+    print(f"Part 1: {solve_part1()}\nPart 2: {solve_part2()}")
 
 
 if __name__ == "__main__":

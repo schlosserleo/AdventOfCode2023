@@ -92,7 +92,7 @@ def calculate_sum(part):
 
 
 def main():
-    print("Part 1: " + str(calculate_sum(1)) + "\nPart 2: " + str(calculate_sum(2)))
+    print(f"Part 1: {calculate_sum(1)}\nPart 2: {calculate_sum(2)}")
 
 
 if __name__ == "__main__":

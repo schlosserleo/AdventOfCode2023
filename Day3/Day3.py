@@ -90,9 +90,9 @@ def solve_part_2(matrix):
 def main():
     input_file = open("Day3Input.txt")
     matrix = fill_matrix(input_file, get_matrix_dimension(input_file)["x"], get_matrix_dimension(input_file)["y"])
-    print(f"Part 1:{solve_part_1(matrix, get_numbers(matrix))}")
+    print(f"Part 1: {solve_part_1(matrix, get_numbers(matrix))}")
     convert_matrix_for_part_2(matrix)
-    print(f"Part 2:{solve_part_2(matrix)}")
+    print(f"Part 2: {solve_part_2(matrix)}")
 
 
 if __name__ == "__main__":
