@@ -44,7 +44,7 @@ def get_numbers(matrix):
     return numbers
 
 
-def solve_part1(matrix, numbers):
+def solve_part_1(matrix, numbers):
     result_sum = 0
     number_is_valid = False
     for number in numbers:
@@ -61,10 +61,38 @@ def solve_part1(matrix, numbers):
     return result_sum
 
 
+def add_number_to_digit_points(matrix, numbers):
+    for number in numbers:
+        for point in number.points:
+            point.number = number
+            matrix.set_point(point)
+
+
+def convert_matrix_for_part_2(matrix):
+    add_number_to_digit_points(matrix, get_numbers(matrix))
+
+
+def solve_part_2(matrix):
+    result_sum = 0
+    for line in matrix.content:
+        for point in line:
+            if point.value == "*":
+                neighbour_numbers = []
+                for neighbour in matrix.get_point_neighbors(point):
+                    if neighbour.value.isdigit():
+                        if neighbour.number.coords not in [i.number.coords for i in neighbour_numbers]:
+                            neighbour_numbers.append(neighbour)
+                if len(neighbour_numbers) == 2:
+                    result_sum += int(neighbour_numbers[0].number.value) * int(neighbour_numbers[1].number.value)
+    return result_sum
+
+
 def main():
     input_file = open("Day3Input.txt")
-    input_data = fill_matrix(input_file, get_matrix_dimension(input_file)["x"], get_matrix_dimension(input_file)["y"])
-    print(solve_part1(input_data, get_numbers(input_data)))
+    matrix = fill_matrix(input_file, get_matrix_dimension(input_file)["x"], get_matrix_dimension(input_file)["y"])
+    print(f"Part 1:{solve_part_1(matrix, get_numbers(matrix))}")
+    convert_matrix_for_part_2(matrix)
+    print(f"Part 2:{solve_part_2(matrix)}")
 
 
 if __name__ == "__main__":

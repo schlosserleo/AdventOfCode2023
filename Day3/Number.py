@@ -1,16 +1,30 @@
+from Point import *
+
+
 class Number:
     def __init__(self, matrix, start, end):
-        self.start = start
-        self.end = end
-        self.len = self.end.x - self.start.x + 1
-        if start.coords != end.coords:
-            self.points = [start, end]
+        if isinstance(start, Point):
+            self.start = start
         else:
-            self.points = [start]
-        for i in range(end.x - start.x - 1):
-            self.points.insert(i + 1, matrix.get_point(start.x + i + 1, start.y))
+            self.start = matrix.get_point(start[0], start[1])
+        if isinstance(end, Point):
+            self.end = end
+        else:
+            self.end = matrix.get_point(end[0], end[1])
+
+        self.len = self.end.x - self.start.x + 1
+
+        if self.start.x != self.end.x or self.start.y != self.end.y:
+            self.points = [self.start, self.end]
+        else:
+            self.points = [self.start]
+
+        for i in range(self.end.x - self.start.x - 1):
+            self.points.insert(i + 1, matrix.get_point(self.start.x + i + 1, self.start.y))
+
+        self.coords = [point.coords for point in self.points]
+
         self.value = self.get_value()
-        self.coords = [i.coords for i in self.points]
 
     def get_value(self):
         value = ""

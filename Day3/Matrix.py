@@ -19,8 +19,9 @@ class Matrix:
             line_str = ""
         return values
 
-    def set_value(self, x, y, value):
+    def set_value(self, x, y, value, notes=""):
         self.content[y][x].value = value
+        self.content[y][x].notes = notes
         self.values[y] = self.values[y][:x] + value + self.values[0][x + 1:]
 
     def get_value(self, x, y):
@@ -28,6 +29,9 @@ class Matrix:
 
     def get_point(self, x, y):
         return self.content[y][x]
+
+    def set_point(self, point):
+        self.set_value(point.x, point.y, point.value, point.notes)
 
     def __str__(self):
         return str(self.values)

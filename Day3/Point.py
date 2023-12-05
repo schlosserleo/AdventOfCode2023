@@ -1,5 +1,5 @@
 class Point:
-    def __init__(self, x, y, value=""):
+    def __init__(self, x, y, value="", number=None):
         self.x = x
         self.y = y
         if len(value) != 1:
@@ -7,6 +7,7 @@ class Point:
         else:
             self.value = value
         self.coords = [self.x, self.y]
+        self.number = number
 
     def __str__(self):
         return f"{self.x}, {self.y}"
