@@ -11,9 +11,9 @@ DIGITS_DICT = {"one": "1",  # for translating digits written as words, or as
                "nine": "9"
                }
 
-def get_first_literal_digit(
-        string_to_search):  # finding the first(most left) occurrence of a literal digit and return both
-    min_index = get_any_literal_digit(string_to_search)  # index and the literal digit
+
+def get_first_literal_digit(string_to_search):  # finding the first(most left) occurrence of a literal digit
+    min_index = get_any_literal_digit(string_to_search)  # and return both index and the literal digit
     if min_index == -1:  # if no literal digit is found return -1
         return [-1, "null"]
     literal_digit = "null"

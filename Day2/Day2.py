@@ -36,7 +36,7 @@ def parse_line(line):
     return [game_number, sets]
 
 
-def solve_part1():
+def solve_part_1():
     red_max = 12
     blue_max = 14
     green_max = 13
@@ -56,7 +56,7 @@ def solve_part1():
     return sum_of_game_numbers
 
 
-def solve_part2():
+def solve_part_2():
     red_min = 0
     blue_min = 0
     green_min = 0
@@ -80,7 +80,7 @@ def solve_part2():
 
 
 def main():
-    print(f"Part 1: {solve_part1()}\nPart 2: {solve_part2()}")
+    print(f"Part 1: {solve_part_1()}\nPart 2: {solve_part_2()}")
 
 
 if __name__ == "__main__":
