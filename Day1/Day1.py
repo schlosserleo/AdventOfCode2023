@@ -67,16 +67,15 @@ def get_first_last_literal_digit(string_to_search):
 
 def get_line_result(literal_digits, normal_digits, part):
     if literal_digits[0][0] == -1 or part == 1:
-        return int(normal_digits[0][1] + normal_digits[1][
-            1])  # when no literal digits are present return the first and last normal digit
-    if normal_digits[0][0] == -1:
-        return int(literal_digits[0][1] + literal_digits[1][1])  # same thing just the opposite
-    if literal_digits[0][0] < normal_digits[0][0]:  # comparing indices of the occurrences of the literal
-        first = literal_digits[0][1]                # and normal digits
+        return int(normal_digits[0][1] + normal_digits[1][1])       # when no literal digits are present return
+    if normal_digits[0][0] == -1:                                   # the first and last normal digit.
+        return int(literal_digits[0][1] + literal_digits[1][1])     # same thing just the opposite.
+    if literal_digits[0][0] < normal_digits[0][0]:                  # comparing indices of the literal
+        first = literal_digits[0][1]                                # and normal digits.
     else:
         first = normal_digits[0][1]
-    if literal_digits[1][0] > normal_digits[1][0]:  # comparing indices of the occurrences of the literal
-        last = literal_digits[1][1]                 # and normal digits
+    if literal_digits[1][0] > normal_digits[1][0]:              # comparing indices of the occurrences of the literal
+        last = literal_digits[1][1]                             # and normal digits
     else:
         last = normal_digits[1][1]
     return int(first + last)
