@@ -5,7 +5,7 @@ def get_winning_numbers(input_file):
     winning_numbers = []
     input_file.seek(0)
     for line in input_file:
-        winning_numbers.append(line[10:39].split())
+        winning_numbers.append(line[line.find(":") + 1:line.find("|") - 1].split())
     return winning_numbers
 
 
@@ -13,7 +13,7 @@ def get_numbers_you_have(input_file):
     numbers_you_have = []
     input_file.seek(0)
     for line in input_file:
-        numbers_you_have.append(line[42:116].split())
+        numbers_you_have.append(line[line.find("|") + 1:len(line) - 1].split())
     return numbers_you_have
 
 
@@ -37,10 +37,24 @@ def solve_part_1(card_results):
     return result_sum
 
 
+def solve_part_2(card_results):
+    result_sum = 0
+    scratch_cards = [1 for i in range(len(card_results))]
+    print(scratch_cards)
+    for index, value in enumerate(len(i) for i in card_results):
+        for i in range(value):
+            if (index + i + 1) < len(scratch_cards):
+                scratch_cards[index + i + 1] += 1 * scratch_cards[index]
+                print(f"added {scratch_cards[index]} to: {index + i + 1}")
+        print(scratch_cards)
+    print(sum(scratch_cards))
+
+
 def main():
     input_file = open("Day4Input.txt", "r")
     card_results = get_card_results(get_winning_numbers(input_file), get_numbers_you_have(input_file))
     print(f"Part 1: {solve_part_1(card_results)}")
+    solve_part_2(card_results)
 
 
 if __name__ == "__main__":
